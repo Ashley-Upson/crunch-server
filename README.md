@@ -12,6 +12,7 @@ To-do:
 	Generate current hardware and software list.
 	Create upgrade shop.
 	Crunching function; software defines what hardware can be used, its efficiency at crunching and how many cores can be used.
+	Add multi computer support; run from a central server and distribute the contract load based on hardware/software.
 
 Possible future updates:
 	Scoring system.
