@@ -10,38 +10,40 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	utilised, // Current amount of networkSpeed being used.
 	computers = [], // Array of the computers.
 	selected = 0; // Index value of the currently selected computer.
-// Computer stats [cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
+// Computer stats [cores, cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
 function newComputer() { // Function to generate a new computer with level 0 stats.
 	"use strict";
-	computers[computers.length] = [0, false, 0, 0, 0, 0, 0, false, 0]; // Create a new computer.
+	computers[computers.length] = [0, 0, false, 0, 0, 0, 0, 0, false, 0]; // Create a new computer.
 }
 newComputer(); // First computer for the user.
 // Drawing functions.
 function drawComputer(computer) {
 	"use strict";
 	// Get the stats of this computer.
-	var cpu = computers[computer][0],
-		overclocked = computers[computer][1],
-		storage = computers[computer][2],
-		conMax = computers[computer][3],
-		utilisation = computers[computer][4],
-		ram = computers[computer][5],
-		ramUsage = computers[computer][6],
-		crunching = computers[computer][7],
-		software = computers[computer][8],
-		offsetX = ((width / 3) * 2) + 10,
-		offsetY = 75;
+	var cores = computers[computer][0],
+		cpu = computers[computer][1],
+		overclocked = computers[computer][2],
+		storage = computers[computer][3],
+		conMax = computers[computer][4],
+		utilisation = computers[computer][5],
+		ram = computers[computer][6],
+		ramUsage = computers[computer][7],
+		crunching = computers[computer][8],
+		software = computers[computer][9],
+		offsetX = ((width / 3) * 2) + 10, // X offset for the computer stats.
+		offsetY = 75; // Y offset for the computer stats.
 	context.textAlign = "left";
 	context.fillStyle = "white";
 	context.font = "16px Arial";
 	context.fillRect(offsetX, offsetY - 19, 90, 1);
 	context.fillText("Computer: " + (computer + 1), offsetX, offsetY - 20);
 	context.font = "14px Arial";
-	context.fillText("CPU: " + cpus[cpu] + " Hz", offsetX, offsetY);
+	context.fillText("CPU: " + cpus[cores][cpu] + " Hz * " + (cores + 1), offsetX, offsetY);
 	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
 	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
 	context.fillText("Net. Usage: " + utilisation + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
 	context.fillText("RAM: " + ramUsage + " of " + memory[ram] + " KiB", offsetX, offsetY + 80);
+	context.fillText("Usable cores: " + kernel[software] + " of " + (cores + 1), offsetX, offsetY + 100);
 }
 function drawDisplay() { // Function to draw the main display.
 	"use strict";
