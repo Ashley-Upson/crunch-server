@@ -6,15 +6,40 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	width = canvas.width, // Width of the canvas.
 	height = canvas.height, // Height of the canvas.
 	cash = 0, // Money that the player has available to them.
-	// Hardware and software info for user.
-	cpu = 0,
-	overclock = false,
-	storage = 0,
-	connection = 0,
-	ram = 0,
-	crunching = false;
-
+	networkSpeed = 0, // Maximum connection speed overall.
+	utilised, // Current amount of networkSpeed being used.
+	computers = [], // Array of the computers.
+	selected = 0; // Index value of the currently selected computer.
+// Computer stats [cpu, overclock, storage, connectionMax, utilisation, ram, crunching, software].
+function newComputer() { // Function to generate a new computer with level 0 stats.
+	"use strict";
+	computers[computers.length] = [0, false, 0, 0, 0, 0, false, 0]; // Create a new computer.
+}
 // Drawing functions.
+function drawComputer(computer) {
+	"use strict";
+	// Get the stats of this computer.
+	var cpu = computers[computer][0],
+		overclocked = computers[computer][1],
+		storage = computers[computer][2],
+		conMax = computers[computer][3],
+		utilisation = computers[computer][4],
+		ram = computers[computer][5],
+		crunching = computers[computer][6],
+		software = computers[computer][7],
+		offsetX = ((width / 3) * 2) + 10,
+		offsetY = 75;
+	context.textAlign = "left";
+	context.fillStyle = "white";
+	context.font = "16px Arial";
+	context.fillRect(offsetX, offsetY - 19, 90, 1);
+	context.fillText("Computer: " + (computer + 1), offsetX, offsetY - 20);
+	context.font = "14px Arial";
+	context.fillText("CPU: " + cpus[cpu] + " Hz", offsetX, offsetY);
+	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
+	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
+	context.fillText("Net. Usage: " + utilisation + " KiB/s", offsetX, offsetY + 60);
+}
 function drawDisplay() { // Function to draw the main display.
 	"use strict";
 	// Top info bar.
@@ -34,4 +59,10 @@ function drawDisplay() { // Function to draw the main display.
 		offsetY = 35;
 	context.fillRect(offsetX, offsetY, 1, height - offsetY);
 }
-drawDisplay();
+function render() {
+	"use strict";
+	newComputer();
+	drawDisplay();
+	drawComputer(selected);
+}
+setInterval(render, 100); // Call render() every 0.1s
