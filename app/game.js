@@ -15,6 +15,7 @@ function newComputer() { // Function to generate a new computer with level 0 sta
 	"use strict";
 	computers[computers.length] = [0, false, 0, 0, 0, 0, false, 0]; // Create a new computer.
 }
+newComputer(); // First computer for the user.
 // Drawing functions.
 function drawComputer(computer) {
 	"use strict";
@@ -38,7 +39,7 @@ function drawComputer(computer) {
 	context.fillText("CPU: " + cpus[cpu] + " Hz", offsetX, offsetY);
 	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
 	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
-	context.fillText("Net. Usage: " + utilisation + " KiB/s", offsetX, offsetY + 60);
+	context.fillText("Net. Usage: " + utilisation + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
 }
 function drawDisplay() { // Function to draw the main display.
 	"use strict";
@@ -61,7 +62,6 @@ function drawDisplay() { // Function to draw the main display.
 }
 function render() {
 	"use strict";
-	newComputer();
 	drawDisplay();
 	drawComputer(selected);
 }
