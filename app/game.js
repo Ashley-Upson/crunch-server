@@ -10,10 +10,10 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	utilised, // Current amount of networkSpeed being used.
 	computers = [], // Array of the computers.
 	selected = 0; // Index value of the currently selected computer.
-// Computer stats [cpu, overclock, storage, connectionMax, utilisation, ram, crunching, software].
+// Computer stats [cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
 function newComputer() { // Function to generate a new computer with level 0 stats.
 	"use strict";
-	computers[computers.length] = [0, false, 0, 0, 0, 0, false, 0]; // Create a new computer.
+	computers[computers.length] = [0, false, 0, 0, 0, 0, 0, false, 0]; // Create a new computer.
 }
 newComputer(); // First computer for the user.
 // Drawing functions.
@@ -26,8 +26,9 @@ function drawComputer(computer) {
 		conMax = computers[computer][3],
 		utilisation = computers[computer][4],
 		ram = computers[computer][5],
-		crunching = computers[computer][6],
-		software = computers[computer][7],
+		ramUsage = computers[computer][6],
+		crunching = computers[computer][7],
+		software = computers[computer][8],
 		offsetX = ((width / 3) * 2) + 10,
 		offsetY = 75;
 	context.textAlign = "left";
@@ -40,6 +41,7 @@ function drawComputer(computer) {
 	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
 	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
 	context.fillText("Net. Usage: " + utilisation + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
+	context.fillText("RAM: " + ramUsage + " of " + memory[ram] + " KiB", offsetX, offsetY + 80);
 }
 function drawDisplay() { // Function to draw the main display.
 	"use strict";
