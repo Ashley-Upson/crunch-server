@@ -9,7 +9,8 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	networkSpeed = 0, // Maximum connection speed overall.
 	utilised, // Current amount of networkSpeed being used.
 	computers = [], // Array of the computers.
-	selected = 0; // Index value of the currently selected computer.
+	selected = 0, // Index value of the currently selected computer.
+	showShop = true; // Variable to tell the script to render the shop or not.
 // Computer stats [cores, cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
 function newComputer() { // Function to generate a new computer with level 0 stats.
 	"use strict";
@@ -64,9 +65,21 @@ function drawDisplay() { // Function to draw the main display.
 		offsetY = 35;
 	context.fillRect(offsetX, offsetY, 1, height - offsetY);
 }
+function drawShop(computer) {
+	"use strict";
+	var offsetX = 10,
+		offsetY = 45;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, 100, 100);
+}
 function render() {
 	"use strict";
 	drawDisplay();
 	drawComputer(selected);
+	if(showShop) {
+		drawShop(0);
+	} else {
+		// Fill space with something.
+	}
 }
 setInterval(render, 100); // Call render() every 0.1s
