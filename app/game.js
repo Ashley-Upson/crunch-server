@@ -42,7 +42,7 @@ function drawComputer(computer) {
 	context.fillText("CPU: " + cpus[cores][cpu] + " Hz * " + (cores + 1), offsetX, offsetY);
 	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
 	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
-	context.fillText("Net. Usage: " + utilisation + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
+	context.fillText("Net. Usage: " + utilisation.toFixed(2) + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
 	context.fillText("RAM: " + ramUsage + " of " + memory[ram] + " KiB", offsetX, offsetY + 80);
 	context.fillText("Usable cores: " + kernel[software] + " of " + (cores + 1), offsetX, offsetY + 100);
 }
@@ -65,12 +65,115 @@ function drawDisplay() { // Function to draw the main display.
 		offsetY = 35;
 	context.fillRect(offsetX, offsetY, 1, height - offsetY);
 }
-function drawShop(computer) {
+function shopListener(event) {
+	"use strict";
+	var x = event.x,
+		y = event.y,
+		offsetX = 10,
+		offsetY = 45;
+	x -= canvas.offsetLeft;
+	y -= canvas.offsetTop;
+	// Upgrade CPU.
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeCpu(selected);
+	}
+	// Upgrade Cores.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeCores(selected);
+	}
+}
+function drawShop(computer) { // Draw the upgrades shop for the computer.
 	"use strict";
 	var offsetX = 10,
-		offsetY = 45;
+		offsetY = 45,
+		buttonWidth = 100,
+		buttonHeight = 50;
+	// CPU button.
 	context.fillStyle = "red";
-	context.fillRect(offsetX, offsetY, 100, 100);
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("CPU", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// CPU Cores button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("Cores", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// Overclock button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Enable", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("Overclock", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// Storage button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("Storage", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// NIC button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("NIC", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// RAM button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("RAM", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// Kernel button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("Kernel", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// Set event listener.
+	canvas.addEventListener("mousedown", shopListener, false);
 }
 function render() {
 	"use strict";

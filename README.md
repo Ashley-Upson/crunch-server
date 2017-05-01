@@ -6,7 +6,7 @@ Idea of the game:
 	<li>You run a company that crunches data for their clients.</li>
 	<li>There is no specific end-point; just keep going.</li>
 	<li>You will be given a starter set of hardware and software.</li>
-	<li>Your task is to upgrade both and take on bigger contracts</li>
+	<li>Your task is to upgrade both and take on bigger contracts.</li>
 </ul>
 <br>
 To-do:
@@ -16,6 +16,7 @@ To-do:
 	<li>Create upgrade shop.</li>
 	<li>Crunching function; software defines what hardware can be used, its efficiency at crunching and how many cores can be used.</li>
 	<li>Add multi computer support; run from a central server and distribute the contract load based on hardware/software.</li>
+	<li>Convert computer data management to objects.</li>
 </ul>
 Possible future updates:
 <ul>
