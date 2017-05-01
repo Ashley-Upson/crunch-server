@@ -39,9 +39,15 @@ function drawComputer(computer) {
 	context.fillRect(offsetX, offsetY - 19, 90, 1);
 	context.fillText("Computer: " + (computer + 1), offsetX, offsetY - 20);
 	context.font = "14px Arial";
-	context.fillText("CPU: " + cpus[cores][cpu] + " Hz * " + (cores + 1), offsetX, offsetY);
+	if(overclocked == true) {
+		var clock = cpus[cores][cpu] * 1.1; // Add 10%
+		clock = clock.toFixed(2);
+	} else {
+		var clock = cpus[cores][cpu];
+	}
+	context.fillText("CPU: " + clock + " Hz * " + (cores + 1), offsetX, offsetY);
 	context.fillText("Storage: " + disks[storage] + " KiB", offsetX, offsetY + 20);
-	context.fillText("Max. Network: " + NIC[storage] + " KiB", offsetX, offsetY + 40);
+	context.fillText("Max. Network: " + NIC[conMax] + " KiB", offsetX, offsetY + 40);
 	context.fillText("Net. Usage: " + utilisation.toFixed(2) + " of " + ISP[networkSpeed] + " KiB/s", offsetX, offsetY + 60);
 	context.fillText("RAM: " + ramUsage + " of " + memory[ram] + " KiB", offsetX, offsetY + 80);
 	context.fillText("Usable cores: " + kernel[software] + " of " + (cores + 1), offsetX, offsetY + 100);
@@ -77,10 +83,40 @@ function shopListener(event) {
 	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
 		upgradeCpu(selected);
 	}
-	// Upgrade Cores.
+	// Upgrade cores.
 	offsetY = offsetY + 60;
 	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
 		upgradeCores(selected);
+	}
+	// Enable overclock.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		enableOverclock(selected);
+	}
+	// Upgrade storage.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeDisk(selected);
+	}
+	// Upgrade NIC.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeNic(selected);
+	}
+	// Upgrade RAM.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeRam(selected);
+	}
+	// Upgrade kernel.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeKernel(selected);
+	}
+	// Upgrade ISP.
+	offsetY = offsetY + 60;
+	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
+		upgradeIsp(selected);
 	}
 }
 function drawShop(computer) { // Draw the upgrades shop for the computer.
@@ -172,6 +208,18 @@ function drawShop(computer) { // Draw the upgrades shop for the computer.
 	context.fillStyle = "white";
 	context.textAlign = "left";
 	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
+	// ISP button.
+	offsetY = offsetY + 60;
+	context.fillStyle = "red";
+	context.fillRect(offsetX, offsetY, buttonWidth, buttonHeight);
+	context.fillStyle = "black";
+	context.font = "16px Arial";
+	context.textAlign = "center";
+	context.fillText("Upgrade", offsetX + (buttonWidth / 2), offsetY + 20);
+	context.fillText("ISP", offsetX + (buttonWidth / 2), offsetY + 40);
+	context.fillStyle = "white";
+	context.textAlign = "left";
+	context.fillText("£cost", offsetX + buttonWidth + 10, offsetY + 30);
 	// Set event listener.
 	canvas.addEventListener("mousedown", shopListener, false);
 }
@@ -180,7 +228,7 @@ function render() {
 	drawDisplay();
 	drawComputer(selected);
 	if(showShop) {
-		drawShop(0);
+		drawShop(selected);
 	} else {
 		// Fill space with something.
 	}
