@@ -12,8 +12,6 @@ Idea of the game:
 To-do:
 <ul>
 	<li>Generate contract list based on current hardware levels; specifically ignore software.</li>
-	<li>Generate current hardware and software list.</li>
-	<li>Create upgrade shop.</li>
 	<li>Crunching function; software defines what hardware can be used, its efficiency at crunching and how many cores can be used.</li>
 	<li>Add multi computer support; run from a central server and distribute the contract load based on hardware/software.</li>
 	<li>Convert computer data management to objects.</li>
