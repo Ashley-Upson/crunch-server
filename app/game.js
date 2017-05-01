@@ -10,7 +10,7 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	utilised, // Current amount of networkSpeed being used.
 	computers = [], // Array of the computers.
 	selected = 0, // Index value of the currently selected computer.
-	showShop = true; // Variable to tell the script to render the shop or not.
+	showShop = false; // Variable to tell the script to render the shop or not.
 // Computer stats [cores, cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
 function newComputer() { // Function to generate a new computer with level 0 stats.
 	"use strict";
@@ -70,6 +70,25 @@ function drawDisplay() { // Function to draw the main display.
 	var offsetX = (width / 3) * 2,
 		offsetY = 35;
 	context.fillRect(offsetX, offsetY, 1, height - offsetY);
+	// Draw the shop buttons.
+	if(showShop == true) {
+		context.fillStyle = "red";
+		context.fillRect(((width / 3) * 2) - 110, 45, 100, 50);
+		context.fillStyle = "black";
+		context.font = "16px Arial";
+		context.textAlign = "center";
+		context.fillText("Close", ((width / 3) * 2) - 60, 65);
+		context.fillText("Shop", ((width / 3) * 2) - 60, 85);
+	} else {
+		context.fillStyle = "red";
+		context.fillRect(((width / 3) * 2) - 110, 45, 100, 50);
+		context.fillStyle = "black";
+		context.font = "16px Arial";
+		context.textAlign = "center";
+		context.fillText("Show", ((width / 3) * 2) - 60, 65);
+		context.fillText("Shop", ((width / 3) * 2) - 60, 85);
+	}
+	canvas.addEventListener("mousedown", menuListener, false);
 }
 function shopListener(event) {
 	"use strict";
@@ -117,6 +136,26 @@ function shopListener(event) {
 	offsetY = offsetY + 60;
 	if(x >= offsetX && x <= offsetX + 100 && y >= offsetY && y <= offsetY + 50) {
 		upgradeIsp(selected);
+	}
+}
+function menuListener(event) {
+	var x = event.x,
+		y = event.y,
+		buttonX = ((width / 3) * 2) - 60,
+		buttonY = 45,
+		buttonWidth = 100,
+		buttonHeight = 50; 
+	x -= canvas.offsetLeft;
+	y -= canvas.offsetTop;
+	if(x >= buttonX && x <= (buttonX + buttonWidth) && y >= buttonY && y <= (buttonY + buttonHeight)) {
+		if(showShop == true) {
+			showShop = false;
+			canvas.removeEventListener("mouseDown", menuListener, false);
+		} else {
+			showShop = true;
+			drawShop();
+			canvas.addEventListener("mouseDown", menuListener, false);
+		}
 	}
 }
 function drawShop(computer) { // Draw the upgrades shop for the computer.
