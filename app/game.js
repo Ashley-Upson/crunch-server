@@ -11,26 +11,37 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	computers = [], // Array of the computers.
 	selected = 0, // Index value of the currently selected computer.
 	showShop = false; // Variable to tell the script to render the shop or not.
-// Computer stats [cores, cpu, overclock, storage, connectionMax, utilisation, ram, ramUsage, crunching, software].
+function computer() { // Constructor for the computer.
+	this.cores = 0;
+	this.cpu = 0;
+	this.overclock = false;
+	this.storage = 0;
+	this.nic = 0;
+	this.utilisation = 0;
+	this.ram = 0;
+	this.ramUsage = 0;
+	this.crunching = false;
+	this.software = 0;
+}
 function newComputer() { // Function to generate a new computer with level 0 stats.
 	"use strict";
-	computers[computers.length] = [0, 0, false, 0, 0, 0, 0, 0, false, 0]; // Create a new computer.
+	computers[computers.length] = new computer(); // Create a new computer.
 }
 newComputer(); // First computer for the user.
 // Drawing functions.
 function drawComputer(computer) {
 	"use strict";
 	// Get the stats of this computer.
-	var cores = computers[computer][0],
-		cpu = computers[computer][1],
-		overclocked = computers[computer][2],
-		storage = computers[computer][3],
-		conMax = computers[computer][4],
-		utilisation = computers[computer][5],
-		ram = computers[computer][6],
-		ramUsage = computers[computer][7],
-		crunching = computers[computer][8],
-		software = computers[computer][9],
+	var cores = computers[computer].cores,
+		cpu = computers[computer].cpu,
+		overclock = computers[computer].overclock,
+		storage = computers[computer].storage,
+		conMax = computers[computer].nic,
+		utilisation = computers[computer].utilisation,
+		ram = computers[computer].ram,
+		ramUsage = computers[computer].ramUsage,
+		crunching = computers[computer].crunching,
+		software = computers[computer].software,
 		offsetX = ((width / 3) * 2) + 10, // X offset for the computer stats.
 		offsetY = 75; // Y offset for the computer stats.
 	context.textAlign = "left";
@@ -39,8 +50,8 @@ function drawComputer(computer) {
 	context.fillRect(offsetX, offsetY - 19, 90, 1);
 	context.fillText("Computer: " + (computer + 1), offsetX, offsetY - 20);
 	context.font = "14px Arial";
-	if(overclocked == true) {
-		var clock = cpus[cores][cpu] * 1.1; // Add 10%
+	if(overclock == true) {
+		var clock = cpus[cores][cpu] * 1.1; // Add 10%. Defined in shop.js
 		clock = clock.toFixed(2);
 	} else {
 		var clock = cpus[cores][cpu];
@@ -144,7 +155,7 @@ function menuListener(event) {
 		buttonX = ((width / 3) * 2) - 60,
 		buttonY = 45,
 		buttonWidth = 100,
-		buttonHeight = 50; 
+		buttonHeight = 50;
 	x -= canvas.offsetLeft;
 	y -= canvas.offsetTop;
 	if(x >= buttonX && x <= (buttonX + buttonWidth) && y >= buttonY && y <= (buttonY + buttonHeight)) {
