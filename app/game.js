@@ -152,7 +152,7 @@ function shopListener(event) {
 function menuListener(event) {
 	var x = event.x,
 		y = event.y,
-		buttonX = ((width / 3) * 2) - 60,
+		buttonX = ((width / 3) * 2) - 110,
 		buttonY = 45,
 		buttonWidth = 100,
 		buttonHeight = 50;
