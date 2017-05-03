@@ -9,6 +9,7 @@ var canvas = document.getElementById("canvas"), // Canvas for the game.
 	networkSpeed = 0, // Maximum connection speed overall.
 	utilised, // Current amount of networkSpeed being used.
 	computers = [], // Array of the computers.
+	contracts = [], // Array of the conracts.
 	selected = 0, // Index value of the currently selected computer.
 	showShop = false; // Variable to tell the script to render the shop or not.
 function computer() { // Constructor for the computer.
