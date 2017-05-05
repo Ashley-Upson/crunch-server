@@ -9,6 +9,9 @@ function contract() { // Contract constructor.
 	this.uploaded = 0;
 	this.price = (this.data / 64).toFixed(2);
 }
+function downloadContract(contract) {
+	"use strict";
+}
 function loadIntoRam() { // Function to load the data into RAM.
 	"use strict";
 	var intervalID = setInterval(function() {
@@ -37,19 +40,19 @@ function loadIntoRam() { // Function to load the data into RAM.
 	}, 100); // Run every 0.1 seconds.
 }
 function process() {
-
+	"use strict";
 }
 function saveToDisk() {
-
+	"use strict";
 }
 function upload() {
-
+	"use strict";
 }
 function dump() {
-
+	"use strict";
 }
 function crunch() {
 	"use strict";
-	console.log("started contract");
+	
 	loadIntoRam();
 }
