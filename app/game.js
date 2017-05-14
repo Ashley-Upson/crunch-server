@@ -18,6 +18,7 @@ function computer() { // Constructor for the computer.
 	this.cpu = 0;
 	this.overclock = false;
 	this.storage = 0;
+	this.storageUsed = 0;
 	this.nic = 0;
 	this.utilisation = 0;
 	this.ram = 0;
